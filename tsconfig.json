@@ -5,7 +5,10 @@
     "outDir": "./server/build",
     "rootDir": "./server",
     "strict": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+
+    // Recommended: Compiler complains about expressions implicitly typed as 'any'
+    "noImplicitAny": true, 
   },
   "exclude": ["./server/build", "node_modules"]
 }
