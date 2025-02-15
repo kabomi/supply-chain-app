@@ -102,6 +102,12 @@ A docker image for the server can be built using this command:
 A container with the production files can be run on PORT 3000 like this:
 `docker run -d -p 3000:3000 supply-chain-app-server:latest`
 
+### Client Dockerfile
+A docker image for the client can be built using this command:
+`docker build -t supply-chain-client -f client/Dockerfile .`
+
+A container with the production files can be run on PORT 5100 like this:
+`docker run -d -p 5100:80 supply-chain-client:latest`
 
 
 ## Contributing and Known issues
