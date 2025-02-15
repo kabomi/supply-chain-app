@@ -1,0 +1,30 @@
+{
+  "name": "supply-chain-app",
+  "version": "1.0.0",
+  "description": "System that allows users to track and trace supply chain items",
+  "main": "server/index.ts",
+  "scripts": {
+    "dev:server": "nodemon",
+    "test": "jest"
+  },
+  "keywords": [
+    "supply",
+    "chain",
+    "tracking",
+    "trace"
+  ],
+  "author": "Imobach Martin <kabomi@protonmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@types/express": "5.0.0",
+    "@types/node": "22.13.4",
+    "express": "4.21.2",
+    "swagger-jsdoc": "6.2.8",
+    "swagger-ui-express": "5.0.1",
+    "ts-node": "10.9.2",
+    "typescript": "5.7.3"
+  },
+  "devDependencies": {
+    "nodemon": "3.1.9"
+  }
+}
