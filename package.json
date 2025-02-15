@@ -5,6 +5,7 @@
   "main": "server/index.ts",
   "scripts": {
     "dev:server": "nodemon",
+    "build": "tsc",
     "lint": "eslint 'server' --max-warnings 10",
     "test": "jest"
   },
