@@ -1,4 +1,5 @@
 import prettier from 'eslint-plugin-prettier';
+import typescript from '@typescript-eslint/eslint-plugin';
 import globals from 'globals';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -17,10 +18,14 @@ export default [
   {
     ignores: ['node_modules', 'server/build'],
   },
-  ...compat.extends('plugin:prettier/recommended'),
+  ...compat.extends(
+    'plugin:prettier/recommended',
+    'plugin:@typescript-eslint/recommended'
+  ),
   {
     plugins: {
       prettier,
+      typescript,
     },
 
     languageOptions: {
