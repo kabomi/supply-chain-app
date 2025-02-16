@@ -14,9 +14,9 @@ const compat = new FlatCompat({
 });
 
 export default [
-    {
-        ignores: ['node_modules', 'server/build'],
-    },
+  {
+    ignores: ['node_modules', 'server/build'],
+  },
   ...compat.extends('plugin:prettier/recommended'),
   {
     plugins: {
@@ -29,6 +29,7 @@ export default [
         ...Object.fromEntries(
           Object.entries(globals.browser).map(([key]) => [key, 'off'])
         ),
+        ...globals.es2021,
         ...globals.jest,
       },
 
@@ -36,11 +37,11 @@ export default [
       sourceType: 'module',
     },
 
-    files: ["**/*.js", "**/*.ts", "**/*.mjs"],
+    files: ['**/*.js', '**/*.ts', '**/*.mjs'],
 
     rules: {
-        'no-console': 'off',
-        'prettier/prettier': 'error',
+      'no-console': 'off',
+      'prettier/prettier': 'error',
     },
   },
 ];

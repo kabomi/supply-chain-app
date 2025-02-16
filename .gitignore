@@ -3,3 +3,6 @@ node_modules
 server/build
 
 *.log
+.vscode
+server/coverage
+client/coverage

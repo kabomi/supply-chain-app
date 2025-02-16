@@ -6,9 +6,10 @@
     "rootDir": "./server",
     "strict": true,
     "esModuleInterop": true,
+    "types": ["node", "jest"],
 
     // Recommended: Compiler complains about expressions implicitly typed as 'any'
     "noImplicitAny": true, 
   },
-  "exclude": ["./server/build", "node_modules"]
+  "exclude": ["./server/build", "./client", "node_modules"]
 }
