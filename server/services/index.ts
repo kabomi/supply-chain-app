@@ -1,7 +1,7 @@
-import express from 'express';
-// import supplyChainService from './supply-chain.service';
-const router = express.Router();
+import { Router } from 'express';
+import supplyChainService from './supply-chain.service';
+const router = Router();
 
-// router.use('/supply-chain', supplyChainService);
+router.use('/supply-chain', supplyChainService);
 
 export default router;

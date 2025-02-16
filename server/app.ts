@@ -12,6 +12,8 @@ if (process.env.ENV === 'development') {
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
     next();
   });
+} else {
+  app.disable('x-powered-by'); // less hackers know about our stack
 }
 
 app.use(express.json()); // Middleware to parse JSON bodies
@@ -19,15 +21,15 @@ app.use(express.json()); // Middleware to parse JSON bodies
 // Swagger definition
 const swaggerOptions = {
   swaggerDefinition: {
-    openapi: '3.0.0',
+    openapi: '3.1.0',
     info: {
       title: 'Supply Chain Management API',
       version: '1.0.0',
       description: 'API for managing supply chain operations',
     },
-    servers: [{ url: `http://localhost:${process.env.PORT}` }],
+    servers: [{ url: `http://localhost:${process.env.PORT}/api` }],
   },
-  apis: ['./services/*.ts'], // Path to the API docs
+  apis: ['server/services/*.ts'], // Path to the API docs
 };
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
