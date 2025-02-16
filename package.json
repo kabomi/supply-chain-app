@@ -5,7 +5,7 @@
   "main": "server/index.ts",
   "scripts": {
     "dev": "npm run dev:server & npm --prefix client run dev",
-    "dev:server": "nodemon",
+    "dev:server": "env-cmd -f dev.env nodemon",
     "build": "tsc",
     "build:client": "npm --prefix client run build",
     "test": "env-cmd -f test.env jest --watchAll --detectOpenHandles",
