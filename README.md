@@ -49,7 +49,7 @@ Must offer end users the capability to:
 Before starting the application you need to install the recommended versions of Node and NPM. Then you are fine running `npm` to install all the npm packages.
 After starting the application with `npm start` you can open it on your browser at [http://http://localhost:3000/](http://http://localhost:3000/).
 
-### `npm dev` (In Progress)
+### `npm dev`
 
 Runs the app in the development mode.<br />
 This means the server will point to a local instance on [http://localhost:3000](http://localhost:3000). It will listen to any changes on the server.
@@ -63,7 +63,7 @@ Same as `npm dev` but without running `npm build:client`.
 
 
 
-## Testing the application (In Progress)
+## Testing the application
 
 At this time, we only have unit tests, but it is planned to have some e2e tests using playwright or cypress.
 
@@ -88,7 +88,7 @@ Feel free to configure your IDE prettier/eslint plugins to don't have the need t
 
 This command will generate the server production files, ready to be deployed.
 
-### `npm build:client` (In Progress)
+### `npm build:client`
 
 This command will generate the client production files, ready to be deployed.
 
@@ -103,7 +103,8 @@ A container with the production files can be run on PORT 3000 like this:
 `docker run -d -p 3000:3000 supply-chain-app-server:latest`
 
 ### Client Dockerfile
-A docker image for the client can be built using this command:
+A docker image for the client can be built using these commands:
+`npm run build:client`
 `docker build -t supply-chain-client -f client/Dockerfile .`
 
 A container with the production files can be run on PORT 5100 like this:
