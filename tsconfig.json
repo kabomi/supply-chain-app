@@ -11,5 +11,5 @@
     // Recommended: Compiler complains about expressions implicitly typed as 'any'
     "noImplicitAny": true, 
   },
-  "exclude": ["./server/build", "./client", "node_modules"]
+  "exclude": ["./server/build", "./client", "node_modules", "./server/test", "./server/**/*.spec.ts"]
 }
