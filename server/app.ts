@@ -2,6 +2,7 @@ import express from 'express';
 import swaggerJsDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 import services from './services';
+import { itemSchema } from './schemas';
 
 const app = express();
 
@@ -26,6 +27,11 @@ const swaggerOptions = {
       title: 'Supply Chain Management API',
       version: '1.0.0',
       description: 'API for managing supply chain operations',
+    },
+    components: {
+      schemas: {
+        Item: itemSchema,
+      },
     },
     servers: [{ url: `http://localhost:${process.env.PORT}/api` }],
   },
