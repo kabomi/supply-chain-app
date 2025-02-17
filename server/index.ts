@@ -1,7 +1,10 @@
 import logger from './logger';
 import app from './app';
+import { initialize } from './persistence/dbConnection';
 
 async function main() {
+  // Initialize Db/DbConnection
+  await initialize();
   const PORT = process.env.PORT || 3000;
   const server = app.listen(PORT);
 

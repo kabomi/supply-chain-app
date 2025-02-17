@@ -1,5 +1,12 @@
 import app from './app';
 
+jest.mock('./persistence/dbConnection', () => {
+  const dbClient = { create: jest.fn() };
+  return {
+    initialize: jest.fn().mockResolvedValue(dbClient),
+    get: () => dbClient,
+  };
+});
 jest.mock('./app', () => {
   return {
     use: jest.fn(),
@@ -29,5 +36,13 @@ describe('Server', () => {
   it('should start', async () => {
     await loadIndex();
     expect(app.listen).toHaveBeenCalledWith(process.env.PORT);
+  });
+
+  it('should initialize Db/DbConnection', async () => {
+    const dbConnection = await import('./persistence/dbConnection');
+
+    await loadIndex().then(() => {
+      expect(dbConnection.initialize).toHaveBeenCalled();
+    });
   });
 });
