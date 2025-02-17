@@ -8,7 +8,7 @@ export type Item = {
   color: string;
 };
 
-class Factory {
+export class Factory {
   static createNewItem({
     name,
     price,

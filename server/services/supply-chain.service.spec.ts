@@ -1,7 +1,7 @@
 import request from 'supertest';
 import express from 'express';
 import supplyChainService from './supply-chain.service';
-import data from '../test/data.fixture';
+import data, { Factory } from '../test/data.fixture';
 import dbConnection from '../persistence/dbConnection';
 
 jest.mock('../persistence/dbConnection', () => {
@@ -21,9 +21,12 @@ const app = express();
 app.use(express.json());
 app.use('/supply-chain', supplyChainService);
 
+let client = dbConnection.get() as jest.Mocked<
+  ReturnType<typeof dbConnection.get>
+>;
 beforeAll(async () => {
   // await dbConnection.initialize();
-  const client = dbConnection.get() as jest.Mocked<
+  client = dbConnection.get() as jest.Mocked<
     ReturnType<typeof dbConnection.get>
   >;
   client.findAll.mockResolvedValue(data.items);
@@ -43,5 +46,26 @@ describe('Supply Chain Service', () => {
       ...data.items[1],
       id: expect.anything(),
     });
+  });
+  it('should create an inventory item', async () => {
+    const itemToSave = Factory.createNewItem({
+      name: 'harry',
+      description: 'potter',
+      price: 500,
+      color: 'green',
+    });
+    client.create.mockResolvedValue(itemToSave);
+
+    const response = await request(app)
+      .post('/supply-chain/inventory')
+      .send(itemToSave);
+
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual(
+      expect.objectContaining({
+        ...itemToSave,
+        id: expect.any(String),
+      })
+    );
   });
 });

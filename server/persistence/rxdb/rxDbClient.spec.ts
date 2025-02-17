@@ -18,6 +18,7 @@ describe('RxDbClient', () => {
 
     const client = new RxDbClient(dbConnection);
     const state = {
+      id: expect.any(String),
       createdAt: expect.any(String),
     };
 

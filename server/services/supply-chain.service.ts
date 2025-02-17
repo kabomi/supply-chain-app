@@ -19,4 +19,26 @@ router.get('/inventory', async (req: Request, res: Response) => {
   res.json([...inventoryItems]);
 });
 
+/**
+ * @swagger
+ * /supply-chain/inventory:
+ *   post:
+ *     summary: Create an inventory item
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Item'
+ *     responses:
+ *       200:
+ *         description: The created inventory item
+ */
+router.post('/inventory', async (req: Request, res: Response) => {
+  const dbClient = dbConnection.get();
+  const item = req.body;
+  const createdItem = await dbClient.create(collection, item);
+  res.json(createdItem);
+});
+
 export default router;

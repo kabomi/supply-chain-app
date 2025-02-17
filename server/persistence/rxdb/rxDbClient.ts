@@ -1,5 +1,6 @@
 import { RxDatabase } from 'rxdb';
 import { DbClient } from '../dbClient';
+import { v7 } from 'uuid';
 
 class RxDbClient implements DbClient {
   protected _dbConnection: RxDatabase;
@@ -7,9 +8,10 @@ class RxDbClient implements DbClient {
     this._dbConnection = _dbConnection;
   }
 
-  async create(collection: string, state: object) {
-    await this._dbConnection[collection].insert({
+  async create(collection: string, state: object): Promise<object> {
+    return await this._dbConnection[collection].insert({
       ...state,
+      id: v7(),
       createdAt: new Date().toISOString(),
     });
   }

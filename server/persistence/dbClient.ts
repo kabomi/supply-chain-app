@@ -11,7 +11,7 @@ export interface DbConnection {
   [collectionName: string]: Collection;
 }
 export interface DbClient {
-  create(collection: string, state: object): Promise<void>;
+  create(collection: string, state: object): Promise<object>;
   findById(collection: string, id: string): Promise<object | null>;
   findAll(collection: string): Promise<object[]>;
   update(collection: string, state: object): Promise<void>;

@@ -13,7 +13,7 @@ export const itemSchema = {
     },
     price: {
       type: 'number',
-      positive: true,
+      minimum: 0,
     },
     description: {
       type: 'string',
@@ -23,11 +23,13 @@ export const itemSchema = {
       type: 'string',
     },
     createdAt: {
-      type: 'date-time',
+      type: 'string',
+      // format: 'date-time',
     },
     updatedAt: {
-      type: 'date-time',
+      type: 'string',
+      // format: 'date-time',
     },
   },
-  required: ['id', 'dealer', 'players', 'createdAt'],
+  required: ['id', 'name', 'color', 'price', 'createdAt'],
 };
