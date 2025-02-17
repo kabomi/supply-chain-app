@@ -31,5 +31,5 @@ export const itemSchema = {
       // format: 'date-time',
     },
   },
-  required: ['id', 'name', 'color', 'price', 'createdAt'],
+  required: ['name', 'color', 'price'],
 };

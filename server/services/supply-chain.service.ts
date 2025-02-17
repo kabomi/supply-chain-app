@@ -1,8 +1,25 @@
-import { Router, Request, Response } from 'express';
+import { Router, Request, Response, NextFunction } from 'express';
 import dbConnection from '../persistence/dbConnection';
+import { getAjv } from 'rxdb/plugins/validate-ajv';
+
+import { itemSchema } from '../schemas';
 
 const router = Router();
 const collection = 'inventory';
+
+const ajv = getAjv();
+
+const validateSchema =
+  (schema: object) =>
+  (req: Request, res: Response, next: NextFunction): void => {
+    const validate = ajv.compile(schema);
+    const valid = validate(req.body);
+    if (!valid) {
+      res.status(400).json({ errors: validate.errors });
+    } else {
+      next();
+    }
+  };
 
 /**
  * @swagger
@@ -34,11 +51,15 @@ router.get('/inventory', async (req: Request, res: Response) => {
  *       200:
  *         description: The created inventory item
  */
-router.post('/inventory', async (req: Request, res: Response) => {
-  const dbClient = dbConnection.get();
-  const item = req.body;
-  const createdItem = await dbClient.create(collection, item);
-  res.json(createdItem);
-});
+router.post(
+  '/inventory',
+  validateSchema({ ...itemSchema, additionalProperties: false }),
+  async (req: Request, res: Response) => {
+    const dbClient = dbConnection.get();
+    const item = req.body;
+    const createdItem = await dbClient.create(collection, item);
+    res.json(createdItem);
+  }
+);
 
 export default router;

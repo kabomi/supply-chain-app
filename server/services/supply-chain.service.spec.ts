@@ -68,4 +68,21 @@ describe('Supply Chain Service', () => {
       })
     );
   });
+  it('should return a validation error for invalid inventory item payload', async () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const itemToSave: any = Factory.createNewItem({
+      name: 'harry',
+      description: 'potter',
+      price: 500,
+      color: 'green',
+    });
+    itemToSave.harry = 'potter';
+    client.create.mockResolvedValue(itemToSave);
+
+    const response = await request(app)
+      .post('/supply-chain/inventory')
+      .send(itemToSave);
+    expect(response.status).toBe(400);
+    expect(response.body.errors).toBeDefined();
+  });
 });
