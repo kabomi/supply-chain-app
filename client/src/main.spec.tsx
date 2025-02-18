@@ -17,6 +17,6 @@ test('renders a specific element', () => {
       <App />
     </StrictMode>
   );
-  const linkElement = screen.getByText(/Home/i);
+  const linkElement = screen.getByRole('link', { name: /Home/i });
   expect(linkElement).toBeInTheDocument();
 });

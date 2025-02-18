@@ -17,6 +17,7 @@ export default defineConfig({
     environment: 'jsdom',
     globals: true,
     css: true,
-    setupFiles: './src/vitest.setup.ts', // assuming the test folder is in the root of our project
+    setupFiles: './src/vitest.setup.ts',
+    reporters: ['dot'],
   }
 })
