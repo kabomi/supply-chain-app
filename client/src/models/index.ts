@@ -5,6 +5,6 @@ export type EventResponse = {
   id: string;
   type: string;
   description: string;
-  date: string;
+  createdAt: string;
   location: string;
 }

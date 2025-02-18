@@ -30,6 +30,29 @@ export const itemSchema = {
       type: 'string',
       // format: 'date-time',
     },
+    events: {
+      type: 'array',
+      items: {
+        type: 'object',
+        properties: {
+          id: {
+            type: 'string',
+            maxLength: 100, // <- the primary key must have set maxLength
+          },
+          description: {
+            type: 'string',
+            maxLength: 1000,
+          },
+          type: {
+            type: 'string',
+          },
+          createdAt: {
+            type: 'string',
+            // format: 'date-time',
+          },
+        },
+      },
+    },
   },
   required: ['name', 'color', 'price'],
 };

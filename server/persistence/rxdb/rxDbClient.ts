@@ -16,7 +16,7 @@ class RxDbClient implements DbClient {
     });
   }
 
-  async findById(collection: string, id: string): Promise<object> {
+  async findById(collection: string, id: string): Promise<object | null> {
     const results = await this._dbConnection[collection]
       .find({
         selector: {

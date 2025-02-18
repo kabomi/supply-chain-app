@@ -62,4 +62,54 @@ router.post(
   }
 );
 
+/**
+ * @swagger
+ * /supply-chain/latest-trail:
+ *  post:
+ *    summary: Get the latest trail of an item
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            properties:
+ *              id:
+ *                type: string
+ *    responses:
+ *      200:
+ *        description: The latest trail of the item
+ *      404:
+ *        description: Item not found
+ *      400:
+ *        description: Invalid request
+ */
+router.post(
+  '/latest-trail',
+  validateSchema({
+    type: 'object',
+    required: ['id'],
+    properties: {
+      id: { type: 'string' },
+    },
+    additionalProperties: false,
+  }),
+  async (req: Request, res: Response) => {
+    const dbClient = dbConnection.get();
+    const { id } = req.body;
+    if (!id) {
+      res.status(400).json({ error: 'Invalid request' });
+      return;
+    }
+    const item = (await dbClient.findById(collection, id)) as {
+      events: object[];
+    };
+    if (!item) {
+      res.status(404).json({ error: 'Item not found' });
+    } else {
+      res.json(item.events[item.events.length - 1]);
+    }
+  }
+);
+
 export default router;

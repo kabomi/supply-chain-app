@@ -9,7 +9,7 @@ jest.mock('../persistence/dbConnection', () => {
     get: jest.fn().mockReturnValue({
       create: jest.fn(),
       insert: jest.fn(),
-      find: jest.fn().mockReturnValue({
+      findById: jest.fn().mockReturnValue({
         exec: jest.fn().mockResolvedValue([{ modify: jest.fn() }]),
       }),
       findAll: jest.fn(),
@@ -84,5 +84,35 @@ describe('Supply Chain Service', () => {
       .send(itemToSave);
     expect(response.status).toBe(400);
     expect(response.body.errors).toBeDefined();
+  });
+  describe('Latest Trail', () => {
+    it('should return the last event of an item', async () => {
+      const item = data.items[0];
+      const event = item.events[0];
+      client.findById.mockResolvedValue(item);
+      const response = await request(app)
+        .post('/supply-chain/latest-trail')
+        .send({ id: item.id });
+      expect(response.status).toBe(200);
+      expect(response.body).toEqual({
+        ...event,
+        id: expect.any(String),
+      });
+    });
+    it('should return a 404 error when item is not found', async () => {
+      client.findById.mockResolvedValue(null);
+      const response = await request(app)
+        .post('/supply-chain/latest-trail')
+        .send({ id: 'not-found' });
+      expect(response.status).toBe(404);
+    });
+    it('should return a 400 error when item id is not provided', async () => {
+      let response = await request(app).post('/supply-chain/latest-trail');
+      expect(response.status).toBe(400);
+      response = await request(app)
+        .post('/supply-chain/latest-trail')
+        .send({ id: '' });
+      expect(response.status).toBe(400);
+    });
   });
 });

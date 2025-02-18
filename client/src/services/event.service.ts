@@ -9,7 +9,7 @@ export const usePostLatestEvent =  () => {
   async function fetchLatestEvent(body: EventRequest) {
     try {
       setIsLoading(true);
-      const response = await fetch('/api/supply-chain/last-trail', {
+      const response = await fetch('/api/supply-chain/latest-trail', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

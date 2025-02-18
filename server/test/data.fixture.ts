@@ -1,11 +1,20 @@
 import { v7 } from 'uuid';
 
+export type ItemEvent = {
+  id: string;
+  type: string;
+  description: string;
+  createdAt: string;
+  location: string;
+};
+
 export type Item = {
   id: string;
   name: string;
   price: number;
   description: string;
   color: string;
+  events: ItemEvent[];
 };
 
 export class Factory {
@@ -14,6 +23,7 @@ export class Factory {
     price,
     description,
     color,
+    events,
   }: Partial<Item>): Item {
     return {
       id: v7(),
@@ -21,6 +31,15 @@ export class Factory {
       price: price ?? 100,
       description: description ?? 'This is an item',
       color: color ?? 'red',
+      events: events ?? [
+        {
+          id: v7(),
+          type: 'created',
+          description: 'Item created',
+          createdAt: new Date().toISOString(),
+          location: 'USA',
+        },
+      ],
     };
   }
 }
