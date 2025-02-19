@@ -10,6 +10,7 @@
     "build:client": "npm --prefix client run build",
     "test": "env-cmd -f test.env jest --watchAll --detectOpenHandles",
     "test:ci": "env-cmd -f test.env jest --watchAll=false --ci --maxWorkers=4 --coverage --detectOpenHandles",
+    "test:client": "npm --prefix client run test",
     "lint": "eslint 'server' --max-warnings 10",
     "postinstall": "npm --prefix client install"
   },
