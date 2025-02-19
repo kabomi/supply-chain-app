@@ -10,7 +10,7 @@ vi.mock('../services/event.service', () => ({
 }));
 
 beforeEach(() => {
-  vi.resetAllMocks();
+  // vi.resetAllMocks();
   (usePostLatestEvent as Mock).mockReturnValue({
     isLoading: false,
     error: null,

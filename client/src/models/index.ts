@@ -8,3 +8,12 @@ export type EventResponse = {
   createdAt: string;
   location: string;
 }
+
+export type ItemResponse = {
+  id: string;
+  name: string;
+  price: number;
+  description: string;
+  color: string;
+  events: EventResponse[];
+}
