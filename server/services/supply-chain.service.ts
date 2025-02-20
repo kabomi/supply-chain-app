@@ -64,6 +64,75 @@ router.post(
 
 /**
  * @swagger
+ * /supply-chain/inventory/{id}:
+ *   put:
+ *     summary: Update an inventory item
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Item'
+ *     responses:
+ *       200:
+ *         description: The updated inventory item
+ *      404:
+ *       description: Item not found
+ */
+router.put(
+  '/inventory/:id',
+  validateSchema({ ...itemSchema, additionalProperties: false }),
+  async (req: Request, res: Response) => {
+    const dbClient = dbConnection.get();
+    const item = req.body;
+    const { id } = req.params;
+    try {
+      await dbClient.update(collection, { ...item, id });
+    } catch (error) {
+      console.error(error);
+      res.status(404).json({ error: 'Item not found' });
+      return;
+    }
+    res.json({ ...item, id });
+  }
+);
+
+/**
+ * @swagger
+ * /supply-chain/inventory/{id}:
+ *   get:
+ *     summary: Get an inventory item by id
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: The inventory item
+ *       404:
+ *         description: Item not found
+ */
+router.get('/inventory/:id', async (req: Request, res: Response) => {
+  const dbClient = dbConnection.get();
+  const { id } = req.params;
+  const item = await dbClient.findById(collection, id);
+  if (!item) {
+    res.status(404).json({ error: 'Item not found' });
+  } else {
+    res.json(item);
+  }
+});
+
+/**
+ * @swagger
  * /supply-chain/latest-trail:
  *  post:
  *    summary: Get the latest trail of an item

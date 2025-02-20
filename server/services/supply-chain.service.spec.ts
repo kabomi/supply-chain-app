@@ -8,6 +8,7 @@ jest.mock('../persistence/dbConnection', () => {
   return {
     get: jest.fn().mockReturnValue({
       create: jest.fn(),
+      update: jest.fn(),
       insert: jest.fn(),
       findById: jest.fn().mockReturnValue({
         exec: jest.fn().mockResolvedValue([{ modify: jest.fn() }]),
@@ -47,6 +48,22 @@ describe('Supply Chain Service', () => {
       id: expect.anything(),
     });
   });
+  it('should return an inventory item by id', async () => {
+    const item = data.items[0];
+    client.findById.mockResolvedValue(item);
+    const response = await request(app).get(
+      `/supply-chain/inventory/${item.id}`
+    );
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual(item);
+  });
+  it('should return a 404 error when item is not found', async () => {
+    client.findById.mockResolvedValue(null);
+    const response = await request(app).get(
+      '/supply-chain/inventory/not-found'
+    );
+    expect(response.status).toBe(404);
+  });
   it('should create an inventory item', async () => {
     const itemToSave = Factory.createNewItem({
       name: 'harry',
@@ -84,6 +101,19 @@ describe('Supply Chain Service', () => {
       .send(itemToSave);
     expect(response.status).toBe(400);
     expect(response.body.errors).toBeDefined();
+  });
+  it('should update an inventory item', async () => {
+    const item = data.items[0];
+    const updatedItem = { ...item, name: 'updated' };
+    client.findById.mockResolvedValue(item);
+    client.update.mockResolvedValue();
+
+    const response = await request(app)
+      .put(`/supply-chain/inventory/${item.id}`)
+      .send(updatedItem);
+
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual(updatedItem);
   });
   describe('Latest Trail', () => {
     it('should return the last event of an item', async () => {
