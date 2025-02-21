@@ -12,7 +12,7 @@
     "test:ci": "env-cmd -f test.env jest --watchAll=false --ci --maxWorkers=4 --coverage --detectOpenHandles",
     "test:client": "npm --prefix client run test",
     "lint": "eslint 'server' --max-warnings 10",
-    "postinstall": "npm --prefix client install"
+    "postinstall": "if [ \"$SKIP_POSTINSTALL\" != \"true\" ]; then npm --prefix client install; fi"
   },
   "keywords": [
     "supply",

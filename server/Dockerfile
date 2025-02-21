@@ -1,23 +1,22 @@
-# Use the official Node.js 18 image as the base image
-FROM node:18
+# Stage 1: Build
+FROM node:18-alpine AS builder
 
-# Create and set the working directory
 WORKDIR /app
+# Set the environment variable to skip postinstall
+ENV SKIP_POSTINSTALL=true
 
-# Copy package.json and package-lock.json files
 COPY package*.json ./
-
-# Install dependencies
-RUN npm install
-
-# Copy the rest of the application code
+RUN npm install --production && npm cache clean --force
 COPY . .
-
-# Build the TypeScript code
 RUN npm run build
 
-# Expose the port the app runs on
-EXPOSE 3000
+# Stage 2: Run
+FROM node:18-alpine
 
-# Start the app
-CMD ["node", "server/build/index.js"]
+WORKDIR /app
+
+COPY --from=builder /app/server/build ./build
+COPY --from=builder /app/node_modules ./node_modules
+
+EXPOSE 3000
+CMD ["node", "build/index.js"]

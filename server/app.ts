@@ -15,7 +15,7 @@ if (process.env.ENV === 'development') {
   });
 } else {
   app.disable('x-powered-by'); // less hackers know about our stack
-  // use basic-auth to protect the API
+
   app.use((req, res, next) => {
     const auth = {
       login: process.env.BASIC_AUTH_USERNAME,
