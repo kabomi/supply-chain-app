@@ -14,7 +14,7 @@ export function Home() {
       <main>
         <input
           data-testid="home-search-input"
-          className="border border-gray-300 rounded-lg p-2"
+          className="border border-gray-300 rounded-lg p-2 sm:w-64 md:w-128 w-48"
           placeholder="Enter Item id..."
           type="text"
           value={searchValue}
@@ -23,7 +23,7 @@ export function Home() {
         <button
           data-testid="home-search-action"
           onClick={handleClick}
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg ml-2 cursor-pointer">
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg ml-2 cursor-pointer mt-2.5">
             { isLoading ? 'loading ...' : 'Last Trail' }
         </button>
         <article className="text-center">

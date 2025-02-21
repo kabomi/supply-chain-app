@@ -14,13 +14,13 @@ function App() {
       <div>
         <nav>
           <ul className="flex justify-center space-x-4">
-            <li>
+            <li className='text-blue-500'>
               <Link to="/">Home</Link>
             </li>
-            <li>
+            <li className='text-blue-500'>
               <Link to="/about">About</Link>
             </li>
-            <li>
+            <li className='text-blue-500'>
               <Link to="/items">Items</Link>
             </li>
           </ul>
