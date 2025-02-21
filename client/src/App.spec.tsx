@@ -3,8 +3,19 @@ import App from './App';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 import { renderWithProviders } from '../test/customRenders';
+import { Mock } from 'vitest';
 
 describe('App', () => {
+  beforeEach(() => {
+    global.fetch = vi.fn();
+    (global.fetch as Mock).mockResolvedValue({
+      json: vi.fn().mockResolvedValue({ items: [] }),
+    });
+  });
+  afterEach(() => {
+    vi.resetAllMocks();
+  });
+
   it('renders Home link', () => {
     render(
       <MemoryRouter>

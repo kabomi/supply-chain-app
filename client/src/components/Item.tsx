@@ -1,4 +1,5 @@
 import { ItemResponse } from '../models';
+import { ItemEvent } from './ItemEvent';
 
 export function Item({
   name,
@@ -43,12 +44,7 @@ export function Item({
                     new Date(b.createdAt).getTime()
                 )
                 .map((event, index) => (
-                  <li key={index}>
-                    <p className="overflow-ellipsis overflow-hidden">Type: {event.type}</p>
-                    <p style={{ 'overflowWrap': 'break-word' }}>{event.description}</p>
-                    <p>Date: {event.createdAt}</p>
-                    <p>Location: {event.location}</p>
-                  </li>
+                  <ItemEvent key={index} event={event} />
                 ))}
             </ul>
           </div>

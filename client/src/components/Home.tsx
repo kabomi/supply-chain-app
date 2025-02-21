@@ -1,5 +1,6 @@
 import { useCallback, useState } from "react";
 import { usePostLatestEvent } from "../services/event.service";
+import { ItemEvent } from "./ItemEvent";
 
 export function Home() {
   const [searchValue, setSearchValue] = useState('');
@@ -7,7 +8,7 @@ export function Home() {
 
   const handleClick = useCallback(async () => {
     fetchLatestEvent({ id: searchValue });
-  }, [searchValue]);
+  }, [fetchLatestEvent, searchValue]);
 
   return (
     <div data-testid="home-page" className="flex justify-center h-screen mt-40">
@@ -27,8 +28,12 @@ export function Home() {
             { isLoading ? 'loading ...' : 'Last Trail' }
         </button>
         <article className="text-center">
-          { error && <p data-testid="home-search-error" className="text-red-500">An error occurred</p> }
-          { data && <p data-testid="home-search-response">{data.description}</p> }
+          { error && <div data-testid="home-search-error" className="text-red-400 m-0.5">An error occurred</div> }
+          { data && 
+          <div data-testid="home-search-response" className="bg-amber-100 rounded-lg p-4 max-w-sm w-full mt-8 inline-block">
+            <h2 className="text-xl font-bold overflow-ellipsis overflow-hidden">Latest Event</h2>
+            <ul><ItemEvent event={data} /></ul>
+          </div> }
         </article>
       </main>
     </div>

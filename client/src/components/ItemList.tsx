@@ -1,4 +1,4 @@
-import { use, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useGetAllItems } from '../services/inventory.service';
 import { ItemResponse } from '../models';
 import { Item } from './Item';
@@ -16,7 +16,7 @@ export function ItemList() {
       await fetchAllItems();
     }
     fetchData();
-  }, []);
+  }, [fetchAllItems]);
 
   useEffect(() => {
     if (data) {

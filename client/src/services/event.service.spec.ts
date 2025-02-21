@@ -29,6 +29,7 @@ describe('usePostLatestEvent', () => {
   it('should set data when fetch is successful', async () => {
     const mockEventResponse: EventResponse = { id: '123', description: 'Test Event', type: 'Test', createdAt: '2021-09-01', location: 'Test Location' };
     (global.fetch as Mock).mockResolvedValueOnce({
+      status: 200,
       json: vi.fn().mockResolvedValueOnce(mockEventResponse),
     });
 

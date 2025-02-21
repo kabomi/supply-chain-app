@@ -20,6 +20,9 @@ export const usePostLatestEvent =  () => {
       const data = await response.json();
       // const endTime = new Date().getMilliseconds();
       // console.log('time taken:', endTime - startTime);
+      if (response.status !== 200) {
+        throw new Error('Item not found');
+      }
       setData(data);
     } catch (error) {
       console.error(error);
