@@ -15,6 +15,28 @@ if (process.env.ENV === 'development') {
   });
 } else {
   app.disable('x-powered-by'); // less hackers know about our stack
+  // use basic-auth to protect the API
+  app.use((req, res, next) => {
+    const auth = {
+      login: process.env.BASIC_AUTH_USERNAME,
+      password: process.env.BASIC_AUTH_PASSWORD,
+    };
+    const b64auth = (req.headers.authorization || '').split(' ')[1] || '';
+    const [login, password] = Buffer.from(b64auth, 'base64')
+      .toString()
+      .split(':');
+    if (
+      !login ||
+      !password ||
+      login !== auth.login ||
+      password !== auth.password
+    ) {
+      res.set('WWW-Authenticate', 'Basic realm="401"');
+      res.status(401).send('Authentication required.');
+      return;
+    }
+    next();
+  });
 }
 
 app.use(express.json()); // Middleware to parse JSON bodies
