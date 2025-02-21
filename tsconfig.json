@@ -7,7 +7,7 @@
     "strict": true,
     "esModuleInterop": true,
     "types": ["node", "jest"],
-
+    "resolveJsonModule": true,
     // Recommended: Compiler complains about expressions implicitly typed as 'any'
     "noImplicitAny": true, 
   },

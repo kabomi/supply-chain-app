@@ -8,6 +8,7 @@ import {
   corsMiddleware,
   optionsMiddleware,
 } from './middleware';
+import supplyChainDefinitions from './services/supply-chain.definitions.json';
 
 const app = express();
 
@@ -46,6 +47,7 @@ const swaggerOptions = {
         },
       ],
     },
+    paths: supplyChainDefinitions.paths,
     servers: [{ url: `http://localhost:${process.env.PORT || 3000}/api` }],
   },
   apis: ['server/services/*.ts'], // Path to the API docs

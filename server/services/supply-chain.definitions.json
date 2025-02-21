@@ -1,0 +1,117 @@
+{
+  "paths": {
+    "/supply-chain/inventory": {
+      "get": {
+        "summary": "List inventory items",
+        "responses": {
+          "200": {
+            "description": "A list of inventory items"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create an inventory item",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Item"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The created inventory item"
+          }
+        }
+      }
+    },
+    "/supply-chain/inventory/{id}": {
+      "put": {
+        "summary": "Update an inventory item",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Item"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The updated inventory item"
+          },
+          "404": {
+            "description": "Item not found"
+          }
+        }
+      },
+      "get": {
+        "summary": "Get an inventory item by id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The inventory item"
+          },
+          "404": {
+            "description": "Item not found"
+          }
+        }
+      }
+    },
+    "/supply-chain/latest-trail": {
+      "post": {
+        "summary": "Get the latest trail of an item",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The latest trail of the item"
+          },
+          "404": {
+            "description": "Item not found"
+          },
+          "400": {
+            "description": "Invalid request"
+          }
+        }
+      }
+    }
+  }
+}
