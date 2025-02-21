@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { ItemResponse } from "../models";
-
-const apiUrl = import.meta.env.VITE_API_URL as string;
+import { apiUrl, commonHeaders } from "./config";
 
 export const useGetAllItems =  () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -12,7 +11,10 @@ export const useGetAllItems =  () => {
     try {
       setError(undefined);
       setIsLoading(true);
-      const response = await fetch(apiUrl + '/supply-chain/inventory');
+      const response = await fetch(apiUrl + '/supply-chain/inventory', {
+        method: 'GET',
+        headers: commonHeaders
+      });
       // const startTime = new Date().getMilliseconds();
       const data = await response.json();
       // const endTime = new Date().getMilliseconds();

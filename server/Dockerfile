@@ -8,7 +8,7 @@ ENV SKIP_POSTINSTALL=true
 COPY package*.json ./
 RUN npm install --production && npm cache clean --force
 COPY . .
-RUN npm run build
+RUN npm run build:prod
 
 # Stage 2: Run
 FROM node:18-alpine

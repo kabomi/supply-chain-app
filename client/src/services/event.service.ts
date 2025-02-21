@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { EventRequest, EventResponse } from "../models";
-
-const apiUrl = import.meta.env.VITE_API_URL as string;
+import { apiUrl, commonHeaders } from "./config";
 
 export const usePostLatestEvent =  () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -14,9 +13,7 @@ export const usePostLatestEvent =  () => {
       setIsLoading(true);
       const response = await fetch(apiUrl + '/supply-chain/latest-trail', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
+        headers: commonHeaders,
         body: JSON.stringify({ id: body.id })
       });
       // const startTime = new Date().getMilliseconds();

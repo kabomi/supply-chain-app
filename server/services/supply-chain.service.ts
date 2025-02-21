@@ -82,8 +82,8 @@ router.post(
  *     responses:
  *       200:
  *         description: The updated inventory item
- *      404:
- *       description: Item not found
+ *       404:
+ *         description: Item not found
  */
 router.put(
   '/inventory/:id',

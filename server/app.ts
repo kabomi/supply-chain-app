@@ -9,11 +9,38 @@ const app = express();
 if (process.env.ENV === 'development') {
   app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'POST, GET, PUT, PATCH');
+    res.setHeader(
+      'Access-Control-Allow-Methods',
+      'POST, GET, PUT, PATCH, DELETE, OPTIONS'
+    );
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
     next();
   });
 } else {
+  app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', process.env.CLIENT_URL);
+    res.setHeader(
+      'Access-Control-Allow-Methods',
+      'POST, GET, PUT, PATCH, DELETE, OPTIONS'
+    );
+    res.setHeader(
+      'Access-Control-Allow-Headers',
+      'Origin, Content-Type, Accept, Authorization'
+    );
+    next();
+  });
+  app.options('*', (req, res) => {
+    res.header('Access-Control-Allow-Origin', process.env.CLIENT_URL);
+    res.setHeader(
+      'Access-Control-Allow-Methods',
+      'POST, GET, PUT, PATCH, DELETE, OPTIONS'
+    );
+    res.setHeader(
+      'Access-Control-Allow-Headers',
+      'Origin, Content-Type, Accept, Authorization'
+    );
+    res.sendStatus(204);
+  });
   app.disable('x-powered-by'); // less hackers know about our stack
 
   app.use((req, res, next) => {
@@ -55,7 +82,7 @@ const swaggerOptions = {
         Item: itemSchema,
       },
     },
-    servers: [{ url: `http://localhost:${process.env.PORT}/api` }],
+    servers: [{ url: `http://localhost:${process.env.PORT || 3000}/api` }],
   },
   apis: ['server/services/*.ts'], // Path to the API docs
 };
