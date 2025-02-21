@@ -10,7 +10,7 @@ export function Home() {
   }, [searchValue]);
 
   return (
-    <div className="flex justify-center h-screen mt-40">
+    <div data-testid="home-page" className="flex justify-center h-screen mt-40">
       <main>
         <input
           data-testid="home-search-input"

@@ -1,6 +1,5 @@
 import './App.css'
 import {
-  BrowserRouter as Router,
   Routes,
   Route,
   Link
@@ -12,7 +11,6 @@ import { Home } from './components/Home';
 function App() {
 
   return (
-    <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
       <div>
         <nav>
           <ul className="flex justify-center space-x-4">
@@ -31,11 +29,12 @@ function App() {
             renders the first one that matches the current URL. */}
         <Routes>
           <Route path="/about" element={<About />} />
-          <Route path="/items" element={<ItemList />} />
+          <Route path="/items" element={<ItemList />}>
+            <Route path=":id" element={<ItemList  />} />
+          </Route>
           <Route path="/" element={<Home />} />
         </Routes>
       </div>
-    </Router>
   )
 }
 
