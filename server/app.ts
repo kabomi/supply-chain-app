@@ -48,7 +48,9 @@ const swaggerOptions = {
       ],
     },
     paths: supplyChainDefinitions.paths,
-    servers: [{ url: `http://localhost:${process.env.PORT || 3000}/api` }],
+    servers: [
+      { url: `http://localhost:${process.env.PUBLIC_API_PORT || 3000}/api` },
+    ],
   },
   apis: ['server/services/*.ts'], // Path to the API docs
 };
