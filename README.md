@@ -95,12 +95,16 @@ This command will generate the client production files, ready to be deployed.
 
 ## Deploy the application
 
+### Docker-compose
+Use `BASIC_AUTH_USERNAME=harry BASIC_AUTH_PASSWORD=potter npm run build:client && docker-compose up --build` to run the server and the client in production mode.
+Or set the variables in your `prod.env` and run `npm run start`
+
 ### Server Dockerfile
 A docker image for the server can be built using this command:
 `docker build -t supply-chain-app-server -f ./server/Dockerfile .`
 
-A container with the production files can be run on PORT 3000 like this:
-`docker run -d -p 3000:3000 -e BASIC_AUTH_USERNAME=harry -e BASIC_AUTH_PASSWORD=potter -e CLIENT_URL=http://localhost:5100 -e PUBLIC_API_PORT=8080 supply-chain-app-server:latest`
+A container with the production files can be run on PORT 8080 like this:
+`docker run -d -p 8080:3000 -e BASIC_AUTH_USERNAME=harry -e BASIC_AUTH_PASSWORD=potter -e CLIENT_URL=http://localhost:5100 -e PUBLIC_API_PORT=8080 supply-chain-app-server:latest`
 
 ### Client Dockerfile
 A docker image for the client can be built using these commands:

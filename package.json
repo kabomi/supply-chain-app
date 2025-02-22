@@ -12,6 +12,7 @@
     "test": "env-cmd -f test.env jest --watchAll --detectOpenHandles",
     "test:ci": "env-cmd -f test.env jest --watchAll=false --ci --maxWorkers=4 --coverage --detectOpenHandles",
     "test:client": "npm --prefix client run test",
+    "start": "npm run build:client && env-cmd -f prod.env docker-compose up --build",
     "lint": "eslint 'server' --max-warnings 10",
     "postinstall": "if [ \"$SKIP_POSTINSTALL\" != \"true\" ]; then npm --prefix client install; fi"
   },
