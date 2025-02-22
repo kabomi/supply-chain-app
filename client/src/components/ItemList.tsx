@@ -16,7 +16,8 @@ export function ItemList() {
       await fetchAllItems();
     }
     fetchData();
-  }, [fetchAllItems]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     if (data) {

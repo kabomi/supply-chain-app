@@ -8,7 +8,8 @@ export function Home() {
 
   const handleClick = useCallback(async () => {
     fetchLatestEvent({ id: searchValue });
-  }, [fetchLatestEvent, searchValue]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchValue]);
 
   return (
     <div data-testid="home-page" className="flex justify-center h-screen mt-40">
